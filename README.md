@@ -7,7 +7,7 @@
 
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check/badge.svg)](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 An R wrapper for ‘Sudachi’; a modern reimagining of
@@ -16,6 +16,12 @@ An R wrapper for ‘Sudachi’; a modern reimagining of
 that directly wraps
 [sudachi.rs](https://github.com/WorksApplications/sudachi.rs) with
 [savvy](https://github.com/yutannihilation/savvy).
+
+## Installation
+
+``` r
+install.packages("sudachir2", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
+```
 
 ## Usage
 
