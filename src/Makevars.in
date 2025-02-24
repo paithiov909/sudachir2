@@ -2,8 +2,7 @@ TARGET = @TARGET@
 
 PROFILE = @PROFILE@
 
-# https://github.com/WorksApplications/sudachi.rs/issues/298
-RUSTFLAGS = --cfg target_pointer_width="64"
+RUSTFLAGS =
 
 TARGET_DIR = $(CURDIR)/rust/target
 LIBDIR = $(TARGET_DIR)/$(TARGET)/$(subst dev,debug,$(PROFILE))
@@ -23,10 +22,10 @@ $(STATLIB):
 	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
 	  export CC="$(CC)" && \
 	  export CFLAGS="$(CFLAGS)" && \
+		export RUSTFLAGS="$(RUSTFLAGS)" && \
 	  if [ "$(TARGET)" != "wasm32-unknown-emscripten" ]; then \
 	    cargo build $(CARGO_BUILD_ARGS); \
 	  else \
-			export RUSTFLAGS="$(RUSTFLAGS)" && \
 	    export CARGO_PROFILE_DEV_PANIC="abort" && \
 	    export CARGO_PROFILE_RELEASE_PANIC="abort" && \
 	    cargo +nightly build $(CARGO_BUILD_ARGS) --target $(TARGET) -Zbuild-std=panic_abort,std; \

@@ -6,7 +6,10 @@ edition = "2021"
 [lib]
 crate-type = ["staticlib", "lib"]
 
-[dependencies]
+# sudachi does not seem to support 32-bit arch.
+# https://github.com/WorksApplications/sudachi.rs/issues/271
+# https://github.com/WorksApplications/sudachi.rs/issues/298
+[target.'cfg(target_pointer_width = "64")'.dependencies]
 savvy = "*"
 sudachi = { git = "https://github.com/WorksApplications/sudachi.rs", tag = "v0.6.10" }
 
