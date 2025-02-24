@@ -40,16 +40,4 @@ prettify(
   into = c("a", "b"),
   col_select = "b"
 )
-
-\dontrun{
-df <- tokenize(
-  data.frame(
-    doc_id = seq_along(5:8),
-    text = ginga[5:8]
-  )
-)
-prettify(df, col_select = 1:3)
-prettify(df, col_select = c(1, 3, 6))
-prettify(df, col_select = c("POS1", "Original"))
-}
 }
