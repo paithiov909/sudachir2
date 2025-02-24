@@ -14,7 +14,7 @@ hexSticker::sticker(
   p_size = 16,
   h_size = 1.8,
   h_fill = "#FEFEFE",
-  h_color = "#bce800",
+  h_color = "#7c9a00", # "#bce800",
   package = "sudachir2",
   filename = here::here("man/figures/logo-original.png")
 )
