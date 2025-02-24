@@ -12,9 +12,9 @@ hexSticker::sticker(
   p_family = "Orbitron",
   p_fontface = "bold",
   p_size = 16,
-  h_size = 1.6,
+  h_size = 1.8,
   h_fill = "#FEFEFE",
-  h_color = "#027F48",
+  h_color = "#bce800",
   package = "sudachir2",
   filename = here::here("man/figures/logo-original.png")
 )

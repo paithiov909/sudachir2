@@ -41,8 +41,13 @@ dat <-
     doc_id = seq_along(text)
   )
 
-tokenize(
-  dat, text, doc_id,
-  tagger = create_tagger(dictionary_path = small_dict)
-)
+toks <-
+  tokenize(
+    dat, text, doc_id,
+    tagger = create_tagger(dictionary_path = small_dict)
+  )
+
+toks
+
+prettify(toks)
 ```
