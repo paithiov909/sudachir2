@@ -6,6 +6,8 @@
 \alias{sudachir2-package}
 \title{sudachir2: R Wrapper for 'sudachi.rs'}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 Offers bindings to 'sudachi.rs' (\url{https://github.com/WorksApplications/sudachi.rs}), a Rust implementation of 'Sudachi' Japanese morphological analyzer.
 }
 \author{

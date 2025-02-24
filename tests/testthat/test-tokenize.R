@@ -10,7 +10,7 @@ test_that("tokenize works", {
     )
   )
 
-  expect_snapishot_value(
+  expect_snapshot_value(
     tokenize(
       c("test", "", NA_character_),
       tagger = create_tagger(dictionary_path = dict)
@@ -18,7 +18,7 @@ test_that("tokenize works", {
     style = "json2",
     cran = FALSE
   )
-  expect_snapishot_value(
+  expect_snapshot_value(
     tokenize(
       data.frame(
         doc_id = c("A", "B", "C"),

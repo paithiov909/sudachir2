@@ -1,4 +1,4 @@
-#' Overriding `tagger_inner`
+#' Overriding `tagger_inner`...
 #' @noRd
 tagger_inner <- function(x, mode, config_file, resource_dir, dictionary_path) {
   ret <-
@@ -10,6 +10,7 @@ tagger_inner <- function(x, mode, config_file, resource_dir, dictionary_path) {
 }
 
 #' Wrapper that takes a tagger function
+#'
 #' @param sentences A character vector of sentences.
 #' @param docnames A character vector of document names.
 #' @param tagger A tagger function.
@@ -21,6 +22,11 @@ tagger_impl <- function(sentences, docnames, tagger) {
 }
 
 #' Create a tagger function
+#'
+#' @details
+#' This function just returns a wrapper function for tokenization,
+#' i.e. does not actually create a tagger instance.
+#' Even if arguments are invalid, this function does not raise any errors.
 #'
 #' @param dictionary_path A path to a dictionary file
 #' such as `"system_core.dic"`.

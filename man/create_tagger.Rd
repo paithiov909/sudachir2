@@ -28,3 +28,8 @@ A function inheriting class \code{purrr_function_partial}.
 \description{
 Create a tagger function
 }
+\details{
+This function just returns a wrapper function for tokenization,
+i.e. does not actually create a tagger instance.
+Even if arguments are invalid, this function does not raise any errors.
+}
