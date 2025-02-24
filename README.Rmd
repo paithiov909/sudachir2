@@ -1,0 +1,48 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# sudachir2 <img src="man/figures/logo.png" align="right" height="139" alt="sudachir2 logo" />
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+<!-- badges: end -->
+
+R bindings for [sudachi.rs](https://github.com/WorksApplications/sudachi.rs).
+
+## Usage
+
+```{r}
+pkgload::load_all(export_all = FALSE)
+
+small_dict <-
+  path.expand(
+    file.path(
+      fetch_dict(tempdir(), dict_version = "20240716", dict_type = "small"),
+      "sudachi-dictionary-20240716",
+      "system_small.dic"
+    )
+  )
+
+dat <-
+  dplyr::tibble(
+    text = c("新しい朝が来た", "希望の朝だ", "喜びに胸を開け", "大空あおげ"),
+    doc_id = seq_along(text)
+  )
+
+tokenize(
+  dat, text, doc_id,
+  tagger = create_tagger(dictionary_path = small_dict)
+)
+```

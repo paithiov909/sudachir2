@@ -1,0 +1,22 @@
+Package: sudachir2
+Title: R Wrapper for 'sudachi.rs'
+Version: 0.6.10
+Authors@R:
+    person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
+Description: Offers bindings to 'sudachi.rs'
+    (<https://github.com/WorksApplications/sudachi.rs>), a Rust
+    implementation of 'Sudachi' Japanese morphological analyzer.
+License: Apache License (>= 2)
+Imports:
+    dplyr,
+    purrr,
+    readr,
+    rlang
+Suggests:
+    curl,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+SystemRequirements: Cargo (Rust's package manager), rustc

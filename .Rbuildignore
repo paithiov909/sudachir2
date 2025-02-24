@@ -1,0 +1,9 @@
+^sudachir2\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+
+^tools$
+
+^src/rust/.cargo$
+^src/rust/target$
