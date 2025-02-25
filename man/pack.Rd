@@ -13,7 +13,7 @@ pack(tbl, pull = "token", n = 1L, sep = "-", .collapse = " ")
 Column to be packed into text or ngrams body. Default value is \code{token}.}
 
 \item{n}{Integer internally passed to ngrams tokenizer function
-created of \code{\link[vibrrt:ngram_tokenizer]{vibrrt::ngram_tokenizer()}}}
+created of \code{\link[=ngram_tokenizer]{ngram_tokenizer()}}}
 
 \item{sep}{Character scalar internally used as the concatenator of ngrams.}
 
