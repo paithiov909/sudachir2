@@ -26,11 +26,13 @@ tagger_inner <- function(x, mode, config_file, resource_dir, dictionary_path) {
 #' @returns A tibble.
 #' @noRd
 tagger_impl <- function(sentences, docnames, tagger) {
-  tagger(sentences) %>%
+  ret <- tagger(sentences)
+  ret %>%
     dplyr::mutate(
       doc_id = factor(.data$sentence_id, labels = docnames),
       .keep = "unused"
-    )
+    ) %>%
+    dplyr::relocate("doc_id", dplyr::everything())
 }
 
 #' Create a tagger function

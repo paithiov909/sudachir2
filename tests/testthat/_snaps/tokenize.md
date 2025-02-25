@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["token", "dictionary_form", "normalized_form", "reading_form", "feature", "doc_id"]
+          "value": ["doc_id", "token", "dictionary_form", "normalized_form", "reading_form", "feature"]
         },
         "row.names": {
           "type": "integer",
@@ -20,6 +20,22 @@
         }
       },
       "value": [
+        {
+          "type": "integer",
+          "attributes": {
+            "levels": {
+              "type": "character",
+              "attributes": {},
+              "value": ["1", "2", "3"]
+            },
+            "class": {
+              "type": "character",
+              "attributes": {},
+              "value": ["factor"]
+            }
+          },
+          "value": [1, 2, 3]
+        },
         {
           "type": "character",
           "attributes": {},
@@ -44,22 +60,6 @@
           "type": "character",
           "attributes": {},
           "value": ["名詞,普通名詞,サ変可能,*,*,*", ",,,,,", ",,,,,"]
-        },
-        {
-          "type": "integer",
-          "attributes": {
-            "levels": {
-              "type": "character",
-              "attributes": {},
-              "value": ["1", "2", "3"]
-            },
-            "class": {
-              "type": "character",
-              "attributes": {},
-              "value": ["factor"]
-            }
-          },
-          "value": [1, 2, 3]
         }
       ]
     }
