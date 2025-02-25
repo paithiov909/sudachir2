@@ -5,6 +5,8 @@
 
 <!-- badges: start -->
 
+[![sudachir2 status
+badge](https://paithiov909.r-universe.dev/sudachir2/badges/version)](https://paithiov909.r-universe.dev/sudachir2)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check.yaml)
@@ -19,24 +21,63 @@ that directly wraps
 
 ## Installation
 
+To install from source package, the Rust toolchain is required.
+
 ``` r
 install.packages("sudachir2", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 ## Usage
 
+To use the package, you need to download a dictionary first. You can use
+`sudachir2::fetch_dict()` to download the
+[SudachiDict](https://github.com/WorksApplications/SudachiDict).
+
 ``` r
-pkgload::load_all(export_all = FALSE)
-#> ℹ Loading sudachir2
+library(sudachir2)
 
 small_dict <-
-  path.expand(
-    file.path(
-      fetch_dict(tempdir(), dict_version = "20240716", dict_type = "small"),
-      "sudachi-dictionary-20240716",
-      "system_small.dic"
-    )
+  file.path(tempdir(),
+    "sudachi-dictionary-20250129",
+    "system_small.dic"
   )
+
+if (!file.exists(small_dict)) {
+  fetch_dict(tempdir(), dict_version = "20250129", dict_type = "small")
+}
+```
+
+After downloading the dictionary, you can create a tagger function.
+`sudachir2::create_tagger()` returns a function that can be used to
+tokenize texts.
+
+``` r
+my_tagger <- create_tagger(small_dict, mode = "C")
+my_tagger("新しい朝が来た")
+#> # A tibble: 5 × 6
+#>   sentence_id token  dictionary_form normalized_form reading_form feature       
+#>         <int> <chr>  <chr>           <chr>           <chr>        <chr>         
+#> 1           1 新しい 新しい          新しい          アタラシイ   形容詞,一般,*,*,形容…
+#> 2           1 朝     朝              朝              アサ         名詞,普通名詞,副詞可能,…
+#> 3           1 が     が              が              ガ           助詞,格助詞,*,*,*,…
+#> 4           1 来     来る            来る            キ           動詞,非自立可能,*,*,…
+#> 5           1 た     た              た              タ           助動詞,*,*,*,助動詞…
+```
+
+For convenience, you can use `sudachir2::tokenize()` to tokenize a
+data.frame as well as a character vector with a tagger function, and
+`sudachir2::prettify()` to parse comma-delimited features.
+
+``` r
+tokenize("新しい朝が来た", tagger = my_tagger)
+#> # A tibble: 5 × 6
+#>   doc_id token  dictionary_form normalized_form reading_form feature            
+#>   <fct>  <chr>  <chr>           <chr>           <chr>        <chr>              
+#> 1 1      新しい 新しい          新しい          アタラシイ   形容詞,一般,*,*,形容詞,連体形…
+#> 2 1      朝     朝              朝              アサ         名詞,普通名詞,副詞可能,*,*,*…
+#> 3 1      が     が              が              ガ           助詞,格助詞,*,*,*,*
+#> 4 1      来     来る            来る            キ           動詞,非自立可能,*,*,カ行変格,…
+#> 5 1      た     た              た              タ           助動詞,*,*,*,助動詞-タ,終止…
 
 dat <-
   dplyr::tibble(
@@ -47,29 +88,17 @@ dat <-
 toks <-
   tokenize(
     dat, text, doc_id,
-    tagger = create_tagger(dictionary_path = small_dict, mode = "C")
+    tagger = my_tagger
   )
 
-toks
-#> # A tibble: 16 × 6
-#>    doc_id token  dictionary_form normalized_form reading_form feature           
-#>    <fct>  <chr>  <chr>           <chr>           <chr>        <chr>             
-#>  1 1      新しい 新しい          新しい          アタラシイ   形容詞,一般,*,*,形容詞,連体…
-#>  2 1      朝     朝              朝              アサ         名詞,普通名詞,副詞可能,*,*,…
-#>  3 1      が     が              が              ガ           助詞,格助詞,*,*,*,*……
-#>  4 1      来     来る            来る            キ           動詞,非自立可能,*,*,カ行変格…
-#>  5 1      た     た              た              タ           助動詞,*,*,*,助動詞-タ,終…
-#>  6 2      希望   希望            希望            キボウ       名詞,普通名詞,サ変可能,*,*,…
-#>  7 2      の     の              の              ノ           助詞,格助詞,*,*,*,*……
-#>  8 2      朝     朝              朝              アサ         名詞,普通名詞,副詞可能,*,*,…
-#>  9 2      だ     だ              だ              ダ           助動詞,*,*,*,助動詞-ダ,終…
-#> 10 3      喜び   喜び            喜び            ヨロコビ     名詞,普通名詞,一般,*,*,*……
-#> 11 3      に     に              に              ニ           助詞,格助詞,*,*,*,*……
-#> 12 3      胸     胸              胸              ムネ         名詞,普通名詞,一般,*,*,*……
-#> 13 3      を     を              を              ヲ           助詞,格助詞,*,*,*,*……
-#> 14 3      開け   開ける          開ける          アケ         動詞,一般,*,*,下一段-カ行,…
-#> 15 4      大空   大空            大空            オオゾラ     名詞,普通名詞,一般,*,*,*……
-#> 16 4      あおげ あおぐ          あおぐ          アオゲ       動詞,一般,*,*,五段-ガ行,命…
+str(toks)
+#> tibble [16 × 6] (S3: tbl_df/tbl/data.frame)
+#>  $ doc_id         : Factor w/ 4 levels "1","2","3","4": 1 1 1 1 1 2 2 2 2 3 ...
+#>  $ token          : chr [1:16] "新しい" "朝" "が" "来" ...
+#>  $ dictionary_form: chr [1:16] "新しい" "朝" "が" "来る" ...
+#>  $ normalized_form: chr [1:16] "新しい" "朝" "が" "来る" ...
+#>  $ reading_form   : chr [1:16] "アタラシイ" "アサ" "ガ" "キ" ...
+#>  $ feature        : chr [1:16] "形容詞,一般,*,*,形容詞,連体形-一般" "名詞,普通名詞,副詞可能,*,*,*" "助詞,格助詞,*,*,*,*" "動詞,非自立可能,*,*,カ行変格,連用形-一般" ...
 
 prettify(toks) |> str()
 #> tibble [16 × 11] (S3: tbl_df/tbl/data.frame)

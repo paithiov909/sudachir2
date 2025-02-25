@@ -11,11 +11,13 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+pkgload::load_all(export_all = FALSE)
 ```
 
 # sudachir2 <img src="man/figures/logo.png" align="right" height="139" alt="sudachir2 logo" />
 
 <!-- badges: start -->
+[![sudachir2 status badge](https://paithiov909.r-universe.dev/sudachir2/badges/version)](https://paithiov909.r-universe.dev/sudachir2)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/paithiov909/sudachir2/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
@@ -26,23 +28,44 @@ that directly wraps [sudachi.rs](https://github.com/WorksApplications/sudachi.rs
 
 ## Installation
 
+To install from source package, the Rust toolchain is required.
+
 ```r
 install.packages("sudachir2", repos = c("https://paithiov909.r-universe.dev", "https://cloud.r-project.org"))
 ```
 
 ## Usage
 
+To use the package, you need to download a dictionary first.
+You can use `sudachir2::fetch_dict()` to download the [SudachiDict](https://github.com/WorksApplications/SudachiDict).
+
 ```{r}
-pkgload::load_all(export_all = FALSE)
+library(sudachir2)
 
 small_dict <-
-  path.expand(
-    file.path(
-      fetch_dict(tempdir(), dict_version = "20240716", dict_type = "small"),
-      "sudachi-dictionary-20240716",
-      "system_small.dic"
-    )
+  file.path(tempdir(),
+    "sudachi-dictionary-20250129",
+    "system_small.dic"
   )
+
+if (!file.exists(small_dict)) {
+  fetch_dict(tempdir(), dict_version = "20250129", dict_type = "small")
+}
+```
+
+After downloading the dictionary, you can create a tagger function.
+`sudachir2::create_tagger()` returns a function that can be used to tokenize texts.
+
+```{r}
+my_tagger <- create_tagger(small_dict, mode = "C")
+my_tagger("新しい朝が来た")
+```
+
+For convenience, you can use `sudachir2::tokenize()` to tokenize a data.frame as well as a character vector
+with a tagger function, and `sudachir2::prettify()` to parse comma-delimited features.
+
+```{r}
+tokenize("新しい朝が来た", tagger = my_tagger)
 
 dat <-
   dplyr::tibble(
@@ -53,10 +76,10 @@ dat <-
 toks <-
   tokenize(
     dat, text, doc_id,
-    tagger = create_tagger(dictionary_path = small_dict, mode = "C")
+    tagger = my_tagger
   )
 
-toks
+str(toks)
 
 prettify(toks) |> str()
 ```
