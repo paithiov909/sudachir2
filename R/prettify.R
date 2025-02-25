@@ -40,13 +40,13 @@ prettify <- function(tbl,
     ## ignore warnings when there are missing columns.
     features <-
       c(
-        paste0(into, collapse = ","),
+        stringi::stri_c(into, collapse = ","),
         dplyr::pull(tbl, {{ col }})
       ) %>%
       I() %>%
       readr::read_delim(
         delim = delim,
-        col_types = paste0(rep("c", length(into)), collapse = ""),
+        col_types = stringi::stri_c(rep_len("c", length(into)), collapse = ""),
         col_select = col_select,
         na = c("*", "NA", ""),
         progress = FALSE,
