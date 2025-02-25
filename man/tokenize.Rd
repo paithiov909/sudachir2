@@ -2,7 +2,7 @@
 % Please edit documentation in R/tokenize.R
 \name{tokenize}
 \alias{tokenize}
-\title{Tokenize sentences using 'sudachi.rs'}
+\title{Tokenize sentences using a tagger function}
 \usage{
 tokenize(x, text_field = "text", docid_field = "doc_id", tagger)
 }
@@ -21,5 +21,5 @@ String or symbol; column containing document IDs.}
 A tibble.
 }
 \description{
-Tokenize sentences using 'sudachi.rs'
+Tokenize sentences using a tagger function
 }

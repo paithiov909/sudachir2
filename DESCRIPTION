@@ -1,6 +1,6 @@
 Package: sudachir2
 Title: R Wrapper for 'sudachi.rs'
-Version: 0.6.10.1
+Version: 0.6.10.2
 Authors@R:
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
 Description: Offers bindings to 'sudachi.rs'

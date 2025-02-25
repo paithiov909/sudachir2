@@ -11,6 +11,15 @@ tagger_inner <- function(x, mode, config_file, resource_dir, dictionary_path) {
 
 #' Wrapper that takes a tagger function
 #'
+#' @details
+#' `tagger` is expected to be a function that takes single argument
+#' (character vector to be tokenized) and returns a data.frame
+#' containing the following columns:
+#'
+#' * `sentence_id`
+#' * `token`
+#' * `feature`
+#'
 #' @param sentences A character vector of sentences.
 #' @param docnames A character vector of document names.
 #' @param tagger A tagger function.
@@ -18,7 +27,10 @@ tagger_inner <- function(x, mode, config_file, resource_dir, dictionary_path) {
 #' @noRd
 tagger_impl <- function(sentences, docnames, tagger) {
   tagger(sentences) %>%
-    dplyr::mutate(doc_id = factor(.data$doc_id, labels = docnames))
+    dplyr::mutate(
+      doc_id = factor(.data$sentence_id, labels = docnames),
+      .keep = "unused"
+    )
 }
 
 #' Create a tagger function
@@ -50,7 +62,7 @@ create_tagger <- function(dictionary_path,
   )
 }
 
-#' Tokenize sentences using 'sudachi.rs'
+#' Tokenize sentences using a tagger function
 #'
 #' @param x A data.frame like object or a character vector to be tokenized.
 #' @param text_field <[`data-masked`][rlang::args_data_masking]>

@@ -49,21 +49,21 @@ fn tagger_inner(
     let mut tokenizer = StatefulTokenizer::new(&dict, mode);
     let splitter = SentenceSplitter::with_limit(32 * 1024).with_checker(dict.lexicon());
 
-    let mut docid: Vec<i32> = Vec::new();
+    let mut sentence_id: Vec<i32> = Vec::new();
     let mut surface: Vec<String> = Vec::new();
     let mut dictionary_form: Vec<String> = Vec::new();
-    let mut reading_form: Vec<String> = Vec::new();
     let mut normalized_form: Vec<String> = Vec::new();
+    let mut reading_form: Vec<String> = Vec::new();
     let mut part_of_speech: Vec<String> = Vec::new();
 
     for (i, line) in x.iter().enumerate() {
         let mut morphemes = MorphemeList::empty(&dict);
         if line.is_na() | line.is_empty() {
-            docid.push((i + 1) as _);
+            sentence_id.push((i + 1) as _);
             surface.push("".to_string());
             dictionary_form.push("".to_string());
-            reading_form.push("".to_string());
             normalized_form.push("".to_string());
+            reading_form.push("".to_string());
             part_of_speech.push(",,,,,".to_string());
             continue;
         }
@@ -74,11 +74,11 @@ fn tagger_inner(
             morphemes.collect_results(&mut tokenizer)?;
 
             for m in morphemes.iter() {
-                docid.push((i + 1) as _);
+                sentence_id.push((i + 1) as _);
                 surface.push(m.surface().to_string());
                 dictionary_form.push(m.dictionary_form().to_string());
-                reading_form.push(m.reading_form().to_string());
                 normalized_form.push(m.normalized_form().to_string());
+                reading_form.push(m.reading_form().to_string());
                 let pos = m.part_of_speech().join(",");
                 part_of_speech.push(pos);
             }
@@ -86,8 +86,8 @@ fn tagger_inner(
     }
 
     let mut out = OwnedListSexp::new(6, true)?;
-    out.set_name_and_value(0, "doc_id", OwnedIntegerSexp::try_from_slice(docid)?)?;
-    out.set_name_and_value(1, "surface", OwnedStringSexp::try_from_slice(surface)?)?;
+    out.set_name_and_value(0, "sentence_id", OwnedIntegerSexp::try_from_slice(sentence_id)?)?;
+    out.set_name_and_value(1, "token", OwnedStringSexp::try_from_slice(surface)?)?;
     out.set_name_and_value(
         2,
         "dictionary_form",
@@ -95,13 +95,13 @@ fn tagger_inner(
     )?;
     out.set_name_and_value(
         3,
-        "reading_form",
-        OwnedStringSexp::try_from_slice(reading_form)?,
+        "normalized_form",
+        OwnedStringSexp::try_from_slice(normalized_form)?,
     )?;
     out.set_name_and_value(
         4,
-        "normalized_form",
-        OwnedStringSexp::try_from_slice(normalized_form)?,
+        "reading_form",
+        OwnedStringSexp::try_from_slice(reading_form)?,
     )?;
     out.set_name_and_value(
         5,
