@@ -6,7 +6,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["doc_id", "surface", "dictionary_form", "reading_form", "normalized_form", "feature"]
+          "value": ["token", "dictionary_form", "normalized_form", "reading_form", "feature", "doc_id"]
         },
         "row.names": {
           "type": "integer",
@@ -20,22 +20,6 @@
         }
       },
       "value": [
-        {
-          "type": "integer",
-          "attributes": {
-            "levels": {
-              "type": "character",
-              "attributes": {},
-              "value": ["1", "2", "3"]
-            },
-            "class": {
-              "type": "character",
-              "attributes": {},
-              "value": ["factor"]
-            }
-          },
-          "value": [1, 2, 3]
-        },
         {
           "type": "character",
           "attributes": {},
@@ -60,6 +44,22 @@
           "type": "character",
           "attributes": {},
           "value": ["名詞,普通名詞,サ変可能,*,*,*", ",,,,,", ",,,,,"]
+        },
+        {
+          "type": "integer",
+          "attributes": {
+            "levels": {
+              "type": "character",
+              "attributes": {},
+              "value": ["1", "2", "3"]
+            },
+            "class": {
+              "type": "character",
+              "attributes": {},
+              "value": ["factor"]
+            }
+          },
+          "value": [1, 2, 3]
         }
       ]
     }
@@ -72,7 +72,7 @@
         "names": {
           "type": "character",
           "attributes": {},
-          "value": ["doc_id", "meta", "surface", "dictionary_form", "reading_form", "normalized_form", "feature"]
+          "value": ["doc_id", "meta", "token", "dictionary_form", "normalized_form", "reading_form", "feature"]
         },
         "row.names": {
           "type": "integer",
@@ -120,12 +120,12 @@
         {
           "type": "character",
           "attributes": {},
-          "value": ["エーエーエー", "bbb", "ccc"]
+          "value": ["AAA", "bbb", "ccc"]
         },
         {
           "type": "character",
           "attributes": {},
-          "value": ["AAA", "bbb", "ccc"]
+          "value": ["エーエーエー", "bbb", "ccc"]
         },
         {
           "type": "character",

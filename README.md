@@ -88,6 +88,7 @@ prettify(toks) |> str()
 
 ## Versioning
 
-This package is versioned by copying the version number of ‘sudachi.rs’,
-where the first three digits represent that version number and the
-fourth digit (if any) represents the patch release for this package.
+This package is versioned by copying the version number of
+[sudachi.rs](https://github.com/WorksApplications/sudachi.rs), where the
+first three digits represent that version number and the fourth digit
+(if any) represents the patch release for this package.
