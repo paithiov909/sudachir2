@@ -11,7 +11,6 @@ use sudachi::dic::dictionary::JapaneseDictionary;
 use sudachi::prelude::MorphemeList;
 use sudachi::sentence_splitter::{SentenceSplitter, SplitSentences};
 
-
 #[savvy]
 fn tagger_inner(
     x: StringSexp,
@@ -86,7 +85,11 @@ fn tagger_inner(
     }
 
     let mut out = OwnedListSexp::new(6, true)?;
-    out.set_name_and_value(0, "sentence_id", OwnedIntegerSexp::try_from_slice(sentence_id)?)?;
+    out.set_name_and_value(
+        0,
+        "sentence_id",
+        OwnedIntegerSexp::try_from_slice(sentence_id)?,
+    )?;
     out.set_name_and_value(1, "token", OwnedStringSexp::try_from_slice(surface)?)?;
     out.set_name_and_value(
         2,

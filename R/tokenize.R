@@ -1,12 +1,12 @@
 #' Overriding `tagger_inner`...
 #' @noRd
 tagger_inner <- function(x, mode, config_file, resource_dir, dictionary_path) {
-  ret <-
+  res <-
     .Call(
       savvy_tagger_inner__impl,
       `x`, `mode`, `config_file`, `resource_dir`, `dictionary_path`
     )
-  dplyr::as_tibble(ret)
+  dplyr::as_tibble(res)
 }
 
 #' Wrapper that takes a tagger function
@@ -26,8 +26,8 @@ tagger_inner <- function(x, mode, config_file, resource_dir, dictionary_path) {
 #' @returns A tibble.
 #' @noRd
 tagger_impl <- function(sentences, docnames, tagger) {
-  ret <- tagger(sentences)
-  ret %>%
+  res <- tagger(sentences)
+  res %>%
     dplyr::mutate(
       doc_id = factor(.data$sentence_id, labels = docnames),
       .keep = "unused"
