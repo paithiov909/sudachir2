@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Offers bindings to 'sudachi.rs' (\url{https://github.com/WorksApplications/sudachi.rs}), a Rust implementation of 'Sudachi' Japanese morphological analyzer.
+Offers bindings to 'sudachi.rs' \url{https://github.com/WorksApplications/sudachi.rs}, a Rust implementation of 'Sudachi' Japanese morphological analyzer.
 }
 \author{
 \strong{Maintainer}: Akiru Kato \email{paithiov909@gmail.com}

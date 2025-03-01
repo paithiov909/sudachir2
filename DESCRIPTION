@@ -4,7 +4,7 @@ Version: 0.6.10.4
 Authors@R:
     person("Akiru", "Kato", , "paithiov909@gmail.com", role = c("aut", "cre"))
 Description: Offers bindings to 'sudachi.rs'
-    (<https://github.com/WorksApplications/sudachi.rs>), a Rust
+    <https://github.com/WorksApplications/sudachi.rs>, a Rust
     implementation of 'Sudachi' Japanese morphological analyzer.
 License: Apache License (>= 2)
 Depends:
