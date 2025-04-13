@@ -1,5 +1,4 @@
 ^sudachir2\.Rproj$
-^\.Rproj\.user$
 ^LICENSE\.md$
 ^README\.Rmd$
 
@@ -8,3 +7,8 @@
 ^src/rust/.cargo$
 ^src/rust/target$
 ^\.github$
+^\.Rproj\.user$
+
+^src/rust/\.cargo$
+^src/Makevars$
+^src/Makevars\.win$
