@@ -1,7 +1,9 @@
 TARGET = @TARGET@
 
 PROFILE = @PROFILE@
+FEATURE_FLAGS = @FEATURE_FLAGS@
 
+# Add flags if necessary
 RUSTFLAGS =
 
 TARGET_DIR = $(CURDIR)/rust/target
@@ -9,7 +11,7 @@ LIBDIR = $(TARGET_DIR)/$(TARGET)/$(subst dev,debug,$(PROFILE))
 STATLIB = $(LIBDIR)/libsudachir2.a
 PKG_LIBS = -L$(LIBDIR) -lsudachir2
 
-CARGO_BUILD_ARGS = --lib --profile $(PROFILE) --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR)
+CARGO_BUILD_ARGS = --lib --profile $(PROFILE) $(FEATURE_FLAGS) --manifest-path=./rust/Cargo.toml --target-dir $(TARGET_DIR)
 
 all: $(SHLIB) clean_intermediate
 
@@ -22,12 +24,14 @@ $(STATLIB):
 	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
 	  export CC="$(CC)" && \
 	  export CFLAGS="$(CFLAGS)" && \
-		export RUSTFLAGS="$(RUSTFLAGS)" && \
+	  export RUSTFLAGS="$(RUSTFLAGS)" && \
+	  @BEFORE_CARGO_BUILD@ \
 	  if [ "$(TARGET)" != "wasm32-unknown-emscripten" ]; then \
 	    cargo build $(CARGO_BUILD_ARGS); \
 	  else \
 	    export CARGO_PROFILE_DEV_PANIC="abort" && \
 	    export CARGO_PROFILE_RELEASE_PANIC="abort" && \
+	    export RUSTFLAGS="$(RUSTFLAGS) -Zdefault-visibility=hidden" && \
 	    cargo +nightly build $(CARGO_BUILD_ARGS) --target $(TARGET) -Zbuild-std=panic_abort,std; \
 	  fi
 

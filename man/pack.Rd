@@ -17,7 +17,7 @@ created of \code{\link[=ngram_tokenizer]{ngram_tokenizer()}}}
 
 \item{sep}{Character scalar internally used as the concatenator of ngrams.}
 
-\item{.collapse}{This argument is passed to \code{\link[stringi:stri_join]{stringi::stri_c()}}.}
+\item{.collapse}{This argument is passed to \code{\link[stringi:stri_c]{stringi::stri_c()}}.}
 }
 \value{
 A tibble.

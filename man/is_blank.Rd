@@ -11,7 +11,7 @@ is_blank(x, trim = TRUE, ...)
 
 \item{trim}{Logical.}
 
-\item{...}{Additional arguments for \code{\link[base:lapply]{base::sapply()}}.}
+\item{...}{Additional arguments for \code{\link[base:sapply]{base::sapply()}}.}
 }
 \value{
 Logicals.

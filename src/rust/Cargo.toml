@@ -1,7 +1,7 @@
 [package]
 name = "sudachir2"
 version = "0.1.0"
-edition = "2021"
+edition = "2024"
 
 [lib]
 crate-type = ["staticlib", "lib"]
@@ -11,7 +11,7 @@ crate-type = ["staticlib", "lib"]
 # https://github.com/WorksApplications/sudachi.rs/issues/298
 [target.'cfg(target_pointer_width = "64")'.dependencies]
 savvy = "*"
-sudachi = { git = "https://github.com/WorksApplications/sudachi.rs", tag = "v0.6.10" }
+sudachi = { git = "https://github.com/WorksApplications/sudachi.rs", tag = "v0.6.11" }
 
 [profile.release]
 # By default, on release build, savvy terminates the R session when a panic
